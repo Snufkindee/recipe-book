@@ -7,7 +7,7 @@ import Header from "./Header";
 
 const enum TITLES {
   SIGNIN = "Kirjaudu sisään",
-  RECIPES = "Reseptit",
+  CONTINUE = "Jatka sivulle",
 }
 
 interface LayoutProps {
@@ -22,7 +22,7 @@ const Layout = ({ children }: LayoutProps) => {
       return children.props.recipe?.fields.title;
 
     return status === AuthStatusTypes.AUTHENTICATED
-      ? TITLES.RECIPES
+      ? TITLES.CONTINUE
       : TITLES.SIGNIN;
   };
 
