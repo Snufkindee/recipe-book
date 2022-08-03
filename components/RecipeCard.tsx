@@ -13,6 +13,7 @@ const RecipeCard = ({ recipe }: { recipe: IRecipe }) => {
             src={`https:${thumbnail.fields.file.url}`}
             width={thumbnail.fields.file.details.image.width}
             height={thumbnail.fields.file.details.image.height}
+            loading="lazy"
           />
           <div className="px-6 py-4 cursor-pointer">
             <div className="font-bold text-xl mb-2 cursor-pointer">{title}</div>

@@ -51,11 +51,12 @@ const RecipeDetails = ({ recipe }: { recipe: IRecipe }) => {
   if (status === "authenticated" && session?.user?.email) {
     return (
       <div className="px-8 flex w-full flex-col items-center justify-center text-start">
-        <div className="lg:w-1/2">
+        <div className="lg:max-w-3xl">
           <Image
             src={`https:${featuredImage.fields.file.url}`}
             width={featuredImage.fields.file.details.image.width}
             height={featuredImage.fields.file.details.image.height}
+            loading="lazy"
           />
           <span className="hidden m-0 bg-white lg:inline-block py-14 px-28 md:p-8 relative -top-20 -left-10 -rotate-1 shadow-lg">
             {documentToReactComponents(description, options)}
