@@ -1,9 +1,9 @@
-import { createClient } from "contentful";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import RecipeCard from "../components/RecipeCard";
 import Search from "../components/Search";
-import { IRecipe, RecipeSearchFields } from "../schema/Recipe";
+import { AuthStatusTypes } from "../schema/Auth";
+import { IRecipe } from "../schema/Recipe";
 import { getRecipes } from "../utils/api";
 
 export const getStaticProps = () => {
@@ -12,22 +12,22 @@ export const getStaticProps = () => {
 
 const Recipes = ({ recipes }: { recipes: IRecipe[] }) => {
   const { status } = useSession({ required: true });
-  const [recipess, setRecipess] = useState(recipes);
+  const [recipeList, setRecipeList] = useState<IRecipe[]>(recipes);
 
-  const setRecipes = (e) => {
-    setRecipess(
-      recipes.filter((recipe) =>
-        recipe.fields.title.toLowerCase().includes(e.toLowerCase())
+  const onSearchChange = (searchArg: string) => {
+    setRecipeList(
+      recipes.filter((recipe: IRecipe) =>
+        recipe.fields.title.toLowerCase().includes(searchArg.toLowerCase())
       )
     );
   };
 
-  if (status === "authenticated") {
+  if (status === AuthStatusTypes.AUTHENTICATED) {
     return (
       <div className="flex justify-center flex-col">
-        <Search onChange={setRecipes} />
+        <Search onChange={onSearchChange} />
         <div className="flex self-center gap-8 flex-wrap p-10 justify-center justify-items-start">
-          {recipess?.map((recipe) => (
+          {recipeList?.map((recipe: IRecipe) => (
             <RecipeCard key={recipe.sys.id} recipe={recipe} />
           ))}
         </div>

@@ -32,7 +32,7 @@ export interface IRecipe {
 
 export interface IRecipeFields {
   cookingTime: string;
-  description: string;
+  description: any;
   ingredients: any;
   slug: string;
   title: string;

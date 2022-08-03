@@ -21,8 +21,14 @@ const options = {
 };
 
 const RecipeDetails = ({ recipe }: { recipe: IRecipe }) => {
-  const { featuredImage, title, cookingTime, ingredients, method } =
-    recipe.fields;
+  const {
+    featuredImage,
+    title,
+    cookingTime,
+    description,
+    ingredients,
+    method,
+  } = recipe.fields;
 
   const { data: session, status } = useSession({ required: true });
 
@@ -35,8 +41,11 @@ const RecipeDetails = ({ recipe }: { recipe: IRecipe }) => {
             width={featuredImage.fields.file.details.image.width}
             height={featuredImage.fields.file.details.image.height}
           />
+          <span className="hidden m-0 bg-white lg:inline-block py-14 px-28 md:p-8 relative -top-20 -left-10 -rotate-1 shadow-lg">
+            {documentToReactComponents(description, options)}
+          </span>
         </div>
-        <div className="flex w-1/2 flex-col">
+        <div className="flex md:w-1/2 flex-col self-start md:self-center">
           <div className="w-full my-2">
             <h2 className="text-xl font-bold">{title}</h2>
             <p>Valmistusaika: {cookingTime}</p>

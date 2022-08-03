@@ -4,7 +4,7 @@ const PROVIDER = "google";
 
 export default function Home() {
   const { status } = useSession();
-  console.log(status);
+
   return (
     <div className="flex justify-center">
       <button
