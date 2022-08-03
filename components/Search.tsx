@@ -1,6 +1,9 @@
 const Search = ({ onChange }: { onChange: (searchArg: string) => void }) => {
   return (
-    <form className="w-full md:w-1/2 md:-translate-x-[-50%] px-8">
+    <form
+      onSubmit={(e) => e.preventDefault()}
+      className="w-full md:w-1/2 md:-translate-x-[-50%] px-8"
+    >
       <label
         htmlFor="default-search"
         className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
