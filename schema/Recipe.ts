@@ -40,3 +40,7 @@ export interface IRecipeFields {
   featuredImage: Image;
   method: any;
 }
+
+export enum RecipeSearchFields {
+  TITLE = "title",
+}
