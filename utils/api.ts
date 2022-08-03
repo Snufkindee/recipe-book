@@ -1,17 +1,30 @@
-import { ContentfulCollection, createClient, Entry } from "contentful";
-import { IRecipe } from "../schema/Recipe";
+import { createClient } from "contentful";
+import { IRecipe, RecipeSearchFields } from "../types/Recipe";
 
 const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID!,
   accessToken: process.env.CONTENTFUL_ACCESS_TOKEN!,
 });
 
-export const getRecipes = async (contentType: string = "recipe") => {
-  const res = await client.getEntries({ content_type: contentType });
+interface SearchArgs {
+  query: RecipeSearchFields;
+  value: string;
+}
+
+export const getRecipes = async (
+  contentType: string = "recipe",
+  { params }: { params?: SearchArgs } = {
+    params: { query: RecipeSearchFields.TITLE, value: "" },
+  }
+) => {
+  const { items } = await client.getEntries({
+    content_type: contentType,
+    [`fields.${params?.query}[match]`]: params?.value,
+  });
 
   return {
     props: {
-      recipes: res.items,
+      recipes: items,
     },
   };
 };
@@ -31,7 +44,10 @@ export const getPath = async (contentType: string = "recipe") => {
   };
 };
 
-export const getRecipe = async (params, contentType: string = "recipe") => {
+export const getRecipe = async (
+  params: { slug: string },
+  contentType: string = "recipe"
+) => {
   const { items } = await client.getEntries({
     content_type: contentType,
     "fields.slug": params.slug,
