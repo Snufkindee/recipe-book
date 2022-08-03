@@ -15,8 +15,6 @@ const Recipes = ({ recipes }: { recipes: IRecipe[] }) => {
   const [recipess, setRecipess] = useState(recipes);
 
   const setRecipes = (e) => {
-    console.log("e", e);
-
     setRecipess(
       recipes.filter((recipe) =>
         recipe.fields.title.toLowerCase().includes(e.toLowerCase())
