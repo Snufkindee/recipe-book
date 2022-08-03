@@ -1,4 +1,4 @@
-const Search = ({ onChange }) => {
+const Search = ({ onChange }: { onChange: (searchArg: string) => void }) => {
   return (
     <form className="w-full md:w-1/2 md:-translate-x-[-50%] px-8">
       <label

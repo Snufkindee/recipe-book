@@ -1,13 +1,9 @@
-import {
-  documentToReactComponents,
-  NodeRenderer,
-  RenderText,
-} from "@contentful/rich-text-react-renderer";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { ParsedUrlQuery } from "querystring";
-import { PropsWithChildren, ReactChild, ReactNode } from "react";
+import { ReactNode } from "react";
 import { IRecipe } from "../../types/Recipe";
 import { getPath, getRecipe } from "../../utils/api";
 

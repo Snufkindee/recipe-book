@@ -1,15 +1,15 @@
-type RecipeSys = {
+interface RecipeSys {
   createdAt: string;
   id: string;
   type: string;
   updatedAt: string;
-};
+}
 
-type Metadata = {
+interface Metadata {
   tags: string[];
-};
+}
 
-type Image = {
+interface Image {
   fields: {
     file: {
       url: string;
@@ -21,7 +21,7 @@ type Image = {
       };
     };
   };
-};
+}
 
 export interface IRecipe {
   fields: IRecipeFields;
