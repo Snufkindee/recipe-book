@@ -1,12 +1,13 @@
+import { GetStaticProps } from "next";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import RecipeCard from "../components/RecipeCard";
 import Search from "../components/Search";
-import { AuthStatusTypes } from "../schema/Auth";
-import { IRecipe } from "../schema/Recipe";
+import { AuthStatusTypes } from "../types/Auth";
+import { IRecipe } from "../types/Recipe";
 import { getRecipes } from "../utils/api";
 
-export const getStaticProps = () => {
+export const getStaticProps: GetStaticProps = async () => {
   return getRecipes();
 };
 

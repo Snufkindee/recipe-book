@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const Header = ({ title }) => {
+const Header = ({ title }: { title: string }) => {
   return (
     <header className="py-16 text-center">
       <Link href="/">

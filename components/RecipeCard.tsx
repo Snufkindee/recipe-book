@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { IRecipe } from "../schema/Recipe";
+import { IRecipe } from "../types/Recipe";
 
 const RecipeCard = ({ recipe }: { recipe: IRecipe }) => {
   const { title, slug, cookingTime, thumbnail } = recipe.fields;

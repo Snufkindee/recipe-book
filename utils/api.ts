@@ -1,5 +1,5 @@
-import { ContentfulCollection, createClient, Entry } from "contentful";
-import { IRecipe, RecipeSearchFields } from "../schema/Recipe";
+import { createClient } from "contentful";
+import { IRecipe, RecipeSearchFields } from "../types/Recipe";
 
 const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID!,
@@ -19,7 +19,7 @@ export const getRecipes = async (
 ) => {
   const { items } = await client.getEntries({
     content_type: contentType,
-    [`fields.${params.query}[match]`]: params.value,
+    [`fields.${params?.query}[match]`]: params?.value,
   });
 
   return {
@@ -44,7 +44,10 @@ export const getPath = async (contentType: string = "recipe") => {
   };
 };
 
-export const getRecipe = async (params, contentType: string = "recipe") => {
+export const getRecipe = async (
+  params: { slug: string },
+  contentType: string = "recipe"
+) => {
   const { items } = await client.getEntries({
     content_type: contentType,
     "fields.slug": params.slug,

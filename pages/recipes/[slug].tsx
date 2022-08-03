@@ -1,22 +1,42 @@
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import {
+  documentToReactComponents,
+  NodeRenderer,
+  RenderText,
+} from "@contentful/rich-text-react-renderer";
+import { GetStaticPaths, GetStaticProps } from "next";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { IRecipe } from "../../schema/Recipe";
+import { ParsedUrlQuery } from "querystring";
+import { PropsWithChildren, ReactChild, ReactNode } from "react";
+import { IRecipe } from "../../types/Recipe";
 import { getPath, getRecipe } from "../../utils/api";
 
-export const getStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   return getPath();
 };
 
-export const getStaticProps = async ({ params }) => {
-  return getRecipe(params);
+interface IParams extends ParsedUrlQuery {
+  slug: string;
+}
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { slug } = params as IParams;
+  return getRecipe({ slug });
 };
 
 const options = {
-  renderText: (text) => {
-    return text.split("\n").reduce((children, textSegment, index) => {
-      return [...children, index > 0 && <br key={index} />, textSegment];
-    }, []);
+  renderText: (text: string): ReactNode => {
+    return text
+      .split("\n")
+      .reduce(
+        (children: string, textSegment: string, index: number): string => {
+          return [
+            ...children,
+            index > 0 && <br key={index} />,
+            textSegment,
+          ] as ReactNode as string;
+        }
+      );
   },
 };
 
@@ -32,7 +52,7 @@ const RecipeDetails = ({ recipe }: { recipe: IRecipe }) => {
 
   const { data: session, status } = useSession({ required: true });
 
-  if (status === "authenticated" && session.user.email) {
+  if (status === "authenticated" && session?.user?.email) {
     return (
       <div className="px-8 flex w-full flex-col items-center justify-center text-start">
         <div className="lg:w-1/2">
