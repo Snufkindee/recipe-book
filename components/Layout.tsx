@@ -21,8 +21,6 @@ const Layout = ({ children }) => {
       : TITLES.SIGNIN;
   };
 
-  console.log("titleset", setTitle);
-
   return (
     <div className="layout">
       {session && (
